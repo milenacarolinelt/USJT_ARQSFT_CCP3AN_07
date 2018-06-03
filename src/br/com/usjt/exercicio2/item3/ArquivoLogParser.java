@@ -1,5 +1,10 @@
 package br.com.usjt.exercicio2.item3;
 
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+
 public class ArquivoLogParser implements LogParser {
 
 	@Override
@@ -8,8 +13,20 @@ public class ArquivoLogParser implements LogParser {
 		for (int i = 0; i < size; i++) {
 			texto += (i+1) + "\r\n";
 		}
-		System.out.println("------------- LOG -------------");
-		System.out.println(texto);
+		Writer writer = null;
+		try {
+			writer = new BufferedWriter(new OutputStreamWriter(
+					new FileOutputStream("C:\\USJT_CCP3AN\\log.txt"), "utf-8"));
+			writer.write(texto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			 try {
+				 writer.close();
+			 } catch (Exception e) {
+				 e.printStackTrace();
+			 }
+		}
 	}
 
 }
